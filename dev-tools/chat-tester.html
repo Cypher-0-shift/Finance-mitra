@@ -602,7 +602,7 @@
         // =====================================================================
         // CONFIGURATION & STATE (Single editable base URL)
         // =====================================================================
-        const BACKEND_URL = "http://localhost:8000/dev/chat";
+        const BACKEND_URL = window.location.protocol === "file:" ? "http://localhost:8000/dev/chat" : (window.location.origin + "/dev/chat");
 
         let currentSessionId = "";
         let attachedMediaBase64 = null;

@@ -153,33 +153,30 @@ app = FastAPI(
 )
 
 
-# ── Routers & Development Middleware ───────────────────────────────────────────
+# ── Routers & Web Demo UI Middleware ─────────────────────────────────────────
 app.include_router(webhook.router)
 app.include_router(internal.router)
 
-_app_settings = get_settings()
-if _app_settings.environment == "development":
-    from fastapi.middleware.cors import CORSMiddleware
-    from fastapi.staticfiles import StaticFiles
-    from app.routers import dev
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
+from app.routers import dev
 
-    app.include_router(dev.router)
-    app.mount("/dev-tools", StaticFiles(directory="dev-tools", html=True), name="dev-tools")
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=[
-            "http://localhost",
-            "http://localhost:3000",
-            "http://localhost:5173",
-            "http://localhost:8000",
-            "http://127.0.0.1",
-            "file://",
-            "null",  # Allow local HTML files opened directly via file:// in browser
-        ],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+# Unconditionally enable dev/demo chat router and static GUI for easy live demoing
+app.include_router(dev.router)
+app.mount("/dev-tools", StaticFiles(directory="dev-tools", html=True), name="dev-tools")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Enable universal access for public demo testing
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/", include_in_schema=False)
+async def root_redirect():
+    """Redirect root hits directly to the interactive Web Demo UI."""
+    return RedirectResponse(url="/dev-tools/chat-tester.html")
 
 
 # ── Health check endpoint ──────────────────────────────────────────────────────
