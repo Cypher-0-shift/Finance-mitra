@@ -12,7 +12,7 @@ pydantic-settings==2.10.1        # reads .env / Railway env vars into Settings
 
 # ── Database (Supabase + async Postgres) ──────────────────────────────────────
 supabase==2.15.3                 # official Python client (wraps httpx async calls)
-asyncpg==0.30.0                  # async Postgres driver for direct queries where needed
+asyncpg==0.31.0                  # async Postgres driver for direct queries where needed
 
 # ── AI / LLM (Groq) ───────────────────────────────────────────────────────────
 groq==0.13.1                     # Groq SDK — Core Engine, Shaper, Intent Router (~14,400 req/day free)
