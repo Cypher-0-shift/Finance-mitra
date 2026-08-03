@@ -1,0 +1,43 @@
+# .github/workflows/keep-alive.yml
+#
+# Purpose: Prevent Render free-tier spin-down (15-min inactivity) and
+# Supabase free-tier pause (7-day inactivity) by pinging /health every 10 minutes.
+# The /health endpoint performs a trivial Supabase query (`SELECT 1`) so a single
+# ping keeps both services warm simultaneously.
+#
+# Free-tier cost: GitHub Actions public repos have unlimited free minutes.
+# Private repos: this workflow uses ~60 minutes/month — well within the 2,000
+# free minutes/month for GitHub Free. Flag to the team if the repo becomes private
+# and the account is near its free-minute ceiling.
+#
+# Security: the ping includes RENDER_HEALTH_CHECK_TOKEN as a header so the
+# /health endpoint can reject spoofed pings from outside sources, even though
+# the endpoint returns minimal data.
+
+name: Keep-Alive Ping
+
+on:
+  schedule:
+    # Every 10 minutes — Render spins down after 15 min; this gives a 5-min buffer.
+    - cron: "*/10 * * * *"
+  workflow_dispatch:             # Allow manual trigger for testing
+
+jobs:
+  ping:
+    name: Ping Render + Supabase
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Ping /health (wakes Render + Supabase)
+        run: |
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "X-Health-Token: ${{ secrets.RENDER_HEALTH_CHECK_TOKEN }}" \
+            "${{ secrets.RENDER_APP_URL }}/health")
+
+          echo "Health check returned: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "::warning::Health check returned $HTTP_STATUS — check Render and Supabase status"
+            exit 1
+          fi

@@ -1,0 +1,38 @@
+# .github/dependabot.yml
+# Dependabot configuration per 04_Tech_Stack.md Section 6 and 02_System_Architecture.md Section 9.5.
+# Catches known CVEs in dependencies as a routine, not a one-time check.
+# Also scans GitHub Actions workflows for vulnerable action versions.
+
+version: 2
+
+updates:
+  # Python package ecosystem
+  - package-ecosystem: "pip"
+    directory: "/"              # requirements.txt lives at the project root
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+    # Group patch updates to reduce noise; keep major/minor updates separate
+    groups:
+      patch-updates:
+        update-types:
+          - "patch"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"

@@ -1,0 +1,30 @@
+[project]
+name = "financial-mitra"
+version = "0.1.0"
+description = "WhatsApp-first AI financial companion for low-income users in India"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning:pydantic.*",
+    "ignore::DeprecationWarning:google.*",
+    "ignore::FutureWarning:google.*",
+    "ignore::DeprecationWarning:gotrue.*",
+    "ignore::DeprecationWarning:supabase.*",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["tests/*", "*/migrations/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 70            # Minimum coverage for security-critical modules (signature, schema)
+
+# ── pip-audit configuration ───────────────────────────────────────────────────
+# Run manually: pip-audit -r requirements.txt --output pip-audit-report.json
+# or as a pre-commit hook. See 04_Tech_Stack.md Section 6 and pilot launch checklist.
+# Dependabot (.github/dependabot.yml) covers automated weekly scans in CI.

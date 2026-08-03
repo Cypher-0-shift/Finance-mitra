@@ -1,0 +1,84 @@
+# render.yaml — Render deployment blueprint for Financial Mitra
+# Docs: https://render.com/docs/blueprint-spec
+#
+# ⚠️  KNOWN PILOT-STAGE LIMITATION (documented per spec):
+# Render's free tier spins down after 15 minutes of inactivity. The first
+# message after any idle period will experience a 30–60 second cold-start delay.
+# This conflicts with the PRD's sub-5-second latency target for that first request.
+# Mitigation: the keep-alive GitHub Actions workflow (.github/workflows/keep-alive.yml)
+# pings /health every 10 minutes to prevent spin-down during active hours.
+# Switch to a paid Render instance type to eliminate this entirely pre-launch.
+
+services:
+  - type: web
+    name: financial-mitra-api
+    runtime: python
+    region: singapore             # Closest to Indian users — review if Render adds Mumbai
+    plan: free                    # Switch to 'starter' or above before real-user pilot
+
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+
+    healthCheckPath: /health      # Render uses this for deployment readiness checks
+
+    envVars:
+      # All values are set in the Render dashboard → Environment — NEVER hardcode here.
+      # This list mirrors .env.example exactly so the Render dashboard has a checklist.
+      - key: ENVIRONMENT
+        value: production         # This triggers the GEMINI_TIER=paid startup guard
+      - key: LOG_LEVEL
+        value: INFO
+
+      # WhatsApp (values set in dashboard)
+      - key: WHATSAPP_VERIFY_TOKEN
+        sync: false
+      - key: WHATSAPP_APP_SECRET
+        sync: false
+      - key: WHATSAPP_ACCESS_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: WHATSAPP_API_VERSION
+        value: v22.0
+
+      # Gemini
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_TIER
+        value: paid               # MUST be 'paid' for production — app refuses to start otherwise
+      - key: GEMINI_CORE_MODEL_CHEAP
+        value: gemini-2.5-flash
+      - key: GEMINI_CORE_MODEL_STRONG
+        value: gemini-2.5-pro
+      - key: GEMINI_SHAPER_MODEL
+        value: gemini-2.5-flash-lite
+      - key: GEMINI_VISION_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_EMBEDDINGS_MODEL
+        value: models/text-embedding-004
+
+      # Supabase
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+
+      # Security
+      - key: WHATSAPP_ID_HASH_SALT
+        sync: false
+      - key: INTERNAL_SERVICE_TOKEN
+        sync: false
+      - key: RENDER_HEALTH_CHECK_TOKEN
+        sync: false
+
+      # Operational limits
+      - key: RATE_LIMIT_REQUESTS_PER_WINDOW
+        value: "20"
+      - key: RATE_LIMIT_WINDOW_SECONDS
+        value: "3600"
+      - key: PER_USER_DAILY_COST_CAP_INR
+        value: "5"
+      - key: MEDIA_RETENTION_HOURS
+        value: "24"
