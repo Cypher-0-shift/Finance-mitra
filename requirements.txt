@@ -21,7 +21,7 @@ groq==0.13.1                     # Groq SDK — Core Engine, Shaper, Intent Rout
 httpx==0.28.1                    # used by Supabase client internally + WhatsApp outbound
 
 # ── Security / crypto ─────────────────────────────────────────────────────────
-python-multipart==0.0.20         # needed by FastAPI for form/file uploads (image input)
+python-multipart==0.0.32         # needed by FastAPI for form/file uploads (image input)
 
 # ── Testing ───────────────────────────────────────────────────────────────────
 pytest==8.4.1
