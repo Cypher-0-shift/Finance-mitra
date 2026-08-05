@@ -107,17 +107,11 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     _vision_engine = VisionEngine(settings)
     logger.info("llm_engines_initialised")
 
-    # ── 7. Confirm Dev Chat Endpoint Status ───────────────────────────────────
-    if settings.environment == "development":
-        logger.info(
-            "dev_chat_endpoint_active",
-            extra={"status": "active", "path": "/dev/chat", "environment": settings.environment},
-        )
-    else:
-        logger.info(
-            "dev_chat_endpoint_disabled",
-            extra={"status": "disabled", "path": "/dev/chat", "environment": settings.environment},
-        )
+    # ── 7. Confirm Web Demo Chat Endpoint Status ─────────────────────────────
+    logger.info(
+        "web_demo_chat_endpoint_active",
+        extra={"status": "active", "path": "/dev/chat", "environment": settings.environment},
+    )
 
     logger.info(
         "financial_mitra_started",
@@ -158,25 +152,23 @@ app.include_router(webhook.router)
 app.include_router(internal.router)
 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import RedirectResponse
 from app.routers import dev
 
-# Unconditionally enable dev/demo chat router and static GUI for easy live demoing
+# Enable dev chat router for easy live demoing and local frontend interaction
 app.include_router(dev.router)
-app.mount("/dev-tools", StaticFiles(directory="dev-tools", html=True), name="dev-tools")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Enable universal access for public demo testing
+    allow_origins=["*"],  # Enable universal access for frontend testing and demos
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 @app.get("/", include_in_schema=False)
-async def root_redirect():
-    """Redirect root hits directly to the interactive Web Demo UI."""
-    return RedirectResponse(url="/dev-tools/chat-tester.html")
+async def root():
+    """Return API health status on root endpoint."""
+    return {"name": "Financial Mitra API", "status": "running", "version": "0.1.0"}
+
 
 
 # ── Health check endpoint ──────────────────────────────────────────────────────

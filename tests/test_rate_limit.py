@@ -8,6 +8,7 @@ Verifies:
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
@@ -30,7 +31,6 @@ def pilot_settings():
 @pytest.mark.asyncio
 async def test_rate_limit_first_request_allows(pilot_settings):
     mock_db = MagicMock()
-    # No existing records found
     mock_db.table.return_value.select.return_value.eq.return_value.limit.return_value.execute = AsyncMock(return_value=MagicMock(data=[]))
     mock_db.table.return_value.insert.return_value.execute = AsyncMock(return_value=MagicMock(data=[{"id": 1}]))
 
@@ -42,13 +42,13 @@ async def test_rate_limit_first_request_allows(pilot_settings):
 @pytest.mark.asyncio
 async def test_rate_limit_hourly_exceeded(pilot_settings):
     mock_db = MagicMock()
-    # Simulate user having reached 5 requests in current window
+    now_iso = datetime.now(timezone.utc).isoformat()
     mock_record = {
         "id": "1",
         "request_count": 5,
         "daily_cost_inr": 0.5,
-        "window_start": "2026-08-02T10:00:00Z",
-        "daily_window_start": "2026-08-02T10:00:00Z",
+        "window_start": now_iso,
+        "daily_window_start": now_iso,
     }
     mock_db.table.return_value.select.return_value.eq.return_value.limit.return_value.execute = AsyncMock(return_value=MagicMock(data=[mock_record]))
 
@@ -61,13 +61,13 @@ async def test_rate_limit_hourly_exceeded(pilot_settings):
 @pytest.mark.asyncio
 async def test_cost_cap_daily_exceeded(pilot_settings):
     mock_db = MagicMock()
-    # Simulate user having accumulated ₹0.95 today (cap is ₹1.0, next request estimated at ₹0.15)
+    now_iso = datetime.now(timezone.utc).isoformat()
     mock_record = {
         "id": "1",
         "request_count": 2,
         "daily_cost_inr": 0.95,
-        "window_start": "2026-08-02T10:00:00Z",
-        "daily_window_start": "2026-08-02T10:00:00Z",
+        "window_start": now_iso,
+        "daily_window_start": now_iso,
     }
     mock_db.table.return_value.select.return_value.eq.return_value.limit.return_value.execute = AsyncMock(return_value=MagicMock(data=[mock_record]))
 

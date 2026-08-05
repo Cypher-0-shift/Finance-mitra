@@ -41,7 +41,12 @@ PERSONA RULES (from the product spec — cannot be overridden):
    help here" — not as a failure or limitation.
 8. The response must end with exactly the one action from the structured input.
 
-LANGUAGE: Respond in the language specified in the prompt.
+LANGUAGE: Respond explicitly in the language specified in the prompt.
+CRITICAL LANGUAGE REQUIREMENT:
+- If the requested Language is Hindi (Devanagari script), your ENTIRE message MUST be written solely in Hindi (Devanagari script). Do not output English sentences.
+- If the requested Language is English, your ENTIRE message MUST be written solely in clean, professional English.
+- Always translate any financial advice or action steps into the requested target language.
+
 MODALITY: Respond with plain text only (no markdown, no bullet points).
 LENGTH: Match your response length to the complexity of the question. Simple questions get 1-2 sentences. Complex financial queries (scam analysis, investment advice, scheme evaluation) get up to 4-5 sentences. Never pad, repeat, or add unnecessary disclaimers. Say exactly what needs to be said — no more, no less.
 
@@ -101,16 +106,19 @@ class LanguageTrustShaper:
 
         # Reference URL map — injected when sources match known authorities
         _ref_urls = {
-            "rbi": "https://www.rbi.org.in/Scripts/Pontential_Fraud.aspx",
-            "sebi": "https://www.sebi.gov.in/sebiweb/other/OtherAction.do?doRecognisedFpi=yes&intmId=3",
-            "npci": "https://www.npci.org.in/what-we-do/upi/upi-ecosystem-statistics",
-            "mca": "https://www.mca.gov.in/content/mca/global/en/home.html",
+            "rbi": "https://www.rbi.org.in",
+            "sebi": "https://www.sebi.gov.in",
+            "npci": "https://www.npci.org.in",
+            "cybercrime": "https://cybercrime.gov.in",
+            "scam": "https://cybercrime.gov.in",
+            "fraud": "https://sancharsaathi.gov.in",
+            "mca": "https://www.mca.gov.in",
             "ncfe": "https://www.ncfe.org.in",
             "pmjdy": "https://pmjdy.gov.in",
             "nps": "https://www.npscra.nsdl.co.in",
-            "post office": "https://www.indiapost.gov.in/Financial/pages/content/post-office-saving-schemes.aspx",
-            "sukanya": "https://www.indiapost.gov.in/Financial/pages/content/post-office-saving-schemes.aspx",
-            "ppf": "https://www.indiapost.gov.in/Financial/pages/content/post-office-saving-schemes.aspx",
+            "post office": "https://www.indiapost.gov.in",
+            "sukanya": "https://www.indiapost.gov.in",
+            "ppf": "https://www.indiapost.gov.in",
         }
         if core_output.sources:
             source_parts = []
@@ -151,3 +159,25 @@ class LanguageTrustShaper:
                 f"{core_output.core_message}\n\n"
                 f"Next step: {core_output.next_action}"
             )
+
+    async def translate_action(self, action_text: str, target_language: str = "hi") -> str:
+        """Translate the recommended next action into the target language so UI action boxes match."""
+        if target_language == "en" or not action_text or self._client is None:
+            return action_text
+        try:
+            lang_name = "Hindi (in Devanagari script)" if target_language == "hi" else target_language
+            completion = await self._client.chat.completions.create(
+                model=self._model,
+                messages=[
+                    {"role": "system", "content": f"You are a professional financial translator. Translate the following recommended financial action accurately and concisely into {lang_name}. Output only the translated plain text without quotes or preamble."},
+                    {"role": "user", "content": action_text},
+                ],
+                temperature=0.3,
+                max_tokens=128,
+            )
+            trans_text = (completion.choices[0].message.content or "").strip()
+            return trans_text if trans_text else action_text
+        except Exception as e:
+            logger.error("action_translation_failed", extra={"error": str(e)})
+            return action_text
+

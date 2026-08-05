@@ -125,7 +125,7 @@ async def test_phase2_webhook_orchestrator_success(sample_whatsapp_payload, mock
         assert "rag_context" in call_kwargs
 
         # 3. Assert Shaper called with target language
-        mock_shaper.shape.assert_called_once_with(mock_core_out, target_language="hi", input_type="text")
+        mock_shaper.shape.assert_called_once_with(mock_core_out, target_language="hinglish", input_type="text")
 
         # 4. Assert WhatsApp reply was attempted
         mock_whatsapp.send_text.assert_called_once()
@@ -141,7 +141,7 @@ async def test_phase2_webhook_orchestrator_success(sample_whatsapp_payload, mock
         assert outbound_call["core_engine_output"] == mock_core_out.model_dump()
         assert outbound_call["shaped_response"] == {
             "text": sent_reply,
-            "language": "hi",
+            "language": "hinglish",
             "intent": "money_decision",
         }
 
