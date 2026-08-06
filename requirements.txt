@@ -3,7 +3,7 @@
 # Run `pip-audit` before pilot launch (pyproject.toml wires this into tooling).
 
 # ── Core web framework ─────────────────────────────────────────────────────────
-fastapi==0.115.12
+fastapi==0.141.1
 uvicorn[standard]==0.34.3        # includes websockets, httptools for production perf
 
 # ── Data validation (Pydantic v2) ─────────────────────────────────────────────
