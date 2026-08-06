@@ -17,11 +17,14 @@ services:
     plan: free                    # Switch to 'starter' or above before real-user pilot
 
     buildCommand: pip install -r requirements.txt
-    startCommand: PYTHONPATH=backend uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn --app-dir backend app.main:app --host 0.0.0.0 --port $PORT
 
     healthCheckPath: /health      # Render uses this for deployment readiness checks
 
     envVars:
+      - key: PYTHONPATH
+        value: backend
+
       # Pin Python version to prevent Render from using bleeding-edge Python 3.14 where binary wheels (e.g. pydantic-core) are missing
       - key: PYTHON_VERSION
         value: 3.11.11
