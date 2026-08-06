@@ -22,6 +22,10 @@ services:
     healthCheckPath: /health      # Render uses this for deployment readiness checks
 
     envVars:
+      # Pin Python version to prevent Render from using bleeding-edge Python 3.14 where binary wheels (e.g. pydantic-core) are missing
+      - key: PYTHON_VERSION
+        value: 3.11.11
+
       # All values are set in the Render dashboard → Environment — NEVER hardcode here.
       # This list mirrors .env.example exactly so the Render dashboard has a checklist.
       - key: ENVIRONMENT
