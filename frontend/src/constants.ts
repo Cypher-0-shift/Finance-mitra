@@ -3,8 +3,8 @@ import type { Message } from "./types";
 export const INITIAL_WELCOME_MESSAGE: Message = {
   id: "msg-welcome-init",
   sender: "system",
-  textHi: "नमस्ते! 👋 मैं Financial Mitra हूँ — आपका व्यक्तिगत वित्तीय साथी। आप मुझसे पूछ सकते हैं: पैसे कहाँ सुरक्षित रखें, कोई ऑनलाइन निवेश स्कीम सही है या नहीं, या कोई भी वित्तीय सवाल।",
-  textEn: "Namaste! 👋 I am Financial Mitra — your personal financial companion. You can ask me: where to safely save money, whether an online investment offer is trustworthy, or any financial question.",
+  textHi: "नमस्ते! 👋 मैं Finance Mitra हूँ — आपका व्यक्तिगत वित्तीय साथी। आप मुझसे पूछ सकते हैं: पैसे कहाँ सुरक्षित रखें, कोई ऑनलाइन निवेश स्कीम सही है या नहीं, या कोई भी वित्तीय सवाल।",
+  textEn: "Namaste! 👋 I am Finance Mitra — your personal financial companion. You can ask me: where to safely save money, whether an online investment offer is trustworthy, or any financial question.",
   timestamp: "Just now",
   quickReplies: [
     {

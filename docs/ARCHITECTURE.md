@@ -1,4 +1,4 @@
-# 🏗️ System Architecture & Technology Stack — Financial Mitra
+# 🏗️ System Architecture & Technology Stack — Finance Mitra
 **Classification:** Technical Architecture & Engineering Specifications  
 **Hosting Topology:** Render (FastAPI Cloud Backend) & Vercel (React Edge Frontend)  
 **Database Layer:** Supabase PostgreSQL with `pgvector` & Row-Level Security
@@ -7,7 +7,7 @@
 
 ## 1. Architectural Overview & Decoupled AI Pipeline
 
-Financial Mitra is engineered around a **Decoupled Multi-Stage Reasoning Pipeline**. Rather than forwarding unverified user inputs directly into a single unpredictable Large Language Model prompt, our platform completely separates **analytical trust reasoning** from **empathetic linguistic translation and presentation shaping**.
+Finance Mitra is engineered around a **Decoupled Multi-Stage Reasoning Pipeline**. Rather than forwarding unverified user inputs directly into a single unpredictable Large Language Model prompt, our platform completely separates **analytical trust reasoning** from **empathetic linguistic translation and presentation shaping**.
 
 ```
                            ┌───────────────────────────────────────────────┐

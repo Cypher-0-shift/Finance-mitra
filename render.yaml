@@ -1,4 +1,4 @@
-# render.yaml — Render deployment blueprint for Financial Mitra
+# render.yaml — Render deployment blueprint for Finance Mitra
 # Docs: https://render.com/docs/blueprint-spec
 #
 # ⚠️  KNOWN PILOT-STAGE LIMITATION (documented per spec):
@@ -11,7 +11,7 @@
 
 services:
   - type: web
-    name: financial-mitra-api
+    name: finance-mitra-api
     runtime: python
     region: singapore             # Closest to Indian users — review if Render adds Mumbai
     plan: free                    # Switch to 'starter' or above before real-user pilot

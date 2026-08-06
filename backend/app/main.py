@@ -1,5 +1,5 @@
 """
-app/main.py — FastAPI application factory for Financial Mitra.
+app/main.py — FastAPI application factory for Finance Mitra.
 
 Wires together:
   - Application lifespan (startup/shutdown): Supabase init,
@@ -35,7 +35,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
 )
-logger = logging.getLogger("financial_mitra")
+logger = logging.getLogger("finance_mitra")
 
 # ── Shared singletons (set during startup lifespan) ──────────────────────────
 _http_client: httpx.AsyncClient | None = None
@@ -114,7 +114,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     )
 
     logger.info(
-        "financial_mitra_started",
+        "finance_mitra_started",
         extra={
             "environment": settings.environment,
             "llm_provider": "groq",
@@ -129,12 +129,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         await _http_client.aclose()
         logger.info("http_client_closed")
 
-    logger.info("financial_mitra_shutdown")
+    logger.info("finance_mitra_shutdown")
 
 
 # ── FastAPI application ────────────────────────────────────────────────────────
 app = FastAPI(
-    title="Financial Mitra API",
+    title="Finance Mitra API",
     description=(
         "WhatsApp-first AI financial companion for low-income users in India. "
         "Internal API documentation — not public-facing."
@@ -167,7 +167,7 @@ app.add_middleware(
 @app.get("/", include_in_schema=False)
 async def root():
     """Return API health status on root endpoint."""
-    return {"name": "Financial Mitra API", "status": "running", "version": "0.1.0"}
+    return {"name": "Finance Mitra API", "status": "running", "version": "0.1.0"}
 
 
 

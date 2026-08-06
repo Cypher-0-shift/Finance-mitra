@@ -57,7 +57,7 @@ export const MitraLogo: React.FC<MitraLogoProps> = ({ variant = "hero", classNam
         <div className="flex flex-col">
           <div className="flex items-baseline gap-1">
             <span className="text-lg sm:text-xl font-bold tracking-tight text-white font-sans leading-none">
-              Financial
+              Finance
             </span>
             <span className="text-lg sm:text-xl font-extrabold tracking-tight text-[#feae2c] font-sans leading-none">
               Mitra
@@ -146,7 +146,7 @@ export const MitraLogo: React.FC<MitraLogoProps> = ({ variant = "hero", classNam
       <div className="flex flex-col items-center">
         <div className="flex items-center gap-1.5 mb-1">
           <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#005f55]">
-            FINANCIAL
+            FINANCE
           </span>
           <span className="text-2xl sm:text-3xl font-black tracking-tight text-[#d97706] bg-gradient-to-r from-[#feae2c] to-[#d97706] bg-clip-text text-transparent">
             MITRA

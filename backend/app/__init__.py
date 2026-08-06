@@ -1,1 +1,1 @@
-# Financial Mitra — App package
+# Finance Mitra — App package

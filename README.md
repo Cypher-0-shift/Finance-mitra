@@ -1,4 +1,4 @@
-# Financial Mitra — AI Financial Companion
+# Finance Mitra — AI Financial Companion
 **Team ZENVEST | BITSoM × Masai Capstone Project**
 
 A WhatsApp-first and web-based AI companion that helps low-income, informal-income users in India make confident money decisions and avoid scams — in Hindi or English, no app download required.
@@ -51,7 +51,7 @@ Every response ends in exactly one next action. The AI never moves money, never 
 The codebase is organized into four main categories: **Backend**, **Frontend**, **Docs**, and **Other Files & Configuration**.
 
 ```
-financial-mitra/
+finance-mitra/
 │
 ├── ⚙️ backend/                 # Backend service (FastAPI, Pytest, scripts)
 │   ├── app/                    # FastAPI application code
@@ -260,4 +260,4 @@ Before opening testing to anyone outside the core team, verify every item in `do
 
 **Team ZENVEST** — BITSoM × Masai School Capstone Project, Phase 2
 
-*Financial Mitra is an educational capstone project. It is not a registered financial advisor and does not provide regulated financial advice. See `docs/COMPLIANCE_AND_SECURITY.md` for full scope and disclaimers.*
+*Finance Mitra is an educational capstone project. It is not a registered financial advisor and does not provide regulated financial advice. See `docs/COMPLIANCE_AND_SECURITY.md` for full scope and disclaimers.*

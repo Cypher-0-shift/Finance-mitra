@@ -1,5 +1,5 @@
 [project]
-name = "financial-mitra"
+name = "finance-mitra"
 version = "0.1.0"
 description = "WhatsApp-first AI financial companion for low-income users in India"
 requires-python = ">=3.11"

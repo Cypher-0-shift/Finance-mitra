@@ -1,5 +1,5 @@
 """
-app/routers/dev.py — Development-only testing endpoint for Financial Mitra.
+app/routers/dev.py — Development-only testing endpoint for Finance Mitra.
 
 Provides POST /dev/chat to exercise the full AI conversational pipeline locally
 without requiring Meta/WhatsApp Graph API connectivity. Reuses real session

@@ -251,9 +251,9 @@ async def _process_webhook_payload(raw_body: bytes, settings: Settings) -> None:
                 _ascii_ratio_r = sum(ord(c) < 128 for c in user_text) / max(len(user_text), 1)
                 _lang_r = "en" if _ascii_ratio_r > 0.85 else "hi"
                 reply = (
-                    "Sure! Let's start fresh. I'm Financial Mitra — ask me anything about investments, savings, or whether a scheme is safe."
+                    "Sure! Let's start fresh. I'm Finance Mitra — ask me anything about investments, savings, or whether a scheme is safe."
                     if _lang_r == "en" else
-                    "ठीक है! नए सिरे से शुरू करते हैं। मैं Financial Mitra हूं — कोई भी सवाल पूछें, निवेश, बचत या किसी स्कीम के बारे में।"
+                    "ठीक है! नए सिरे से शुरू करते हैं। मैं Finance Mitra हूं — कोई भी सवाल पूछें, निवेश, बचत या किसी स्कीम के बारे में।"
                 )
                 if wa_client and http_client and settings.whatsapp_access_token:
                     await wa_client.send_text(phone_number, reply, http_client)
@@ -272,9 +272,9 @@ async def _process_webhook_payload(raw_body: bytes, settings: Settings) -> None:
                 _lang = "hi" if not _is_roman else ("hinglish" if _has_hinglish else "en")
                 
                 reply = (
-                    "Hello! I'm Financial Mitra, your financial safety guide. Ask me about any investment scheme, savings plan, or if something feels like a scam — I'm here to help!"
+                    "Hello! I'm Finance Mitra, your financial safety guide. Ask me about any investment scheme, savings plan, or if something feels like a scam — I'm here to help!"
                     if _lang == "en" else
-                    "नमस्ते! मैं Financial Mitra हूं। किसी भी निवेश, बचत योजना या संदिग्ध स्कीम के बारे में पूछें — मैं आपकी मदद करूंगा!"
+                    "नमस्ते! मैं Finance Mitra हूं। किसी भी निवेश, बचत योजना या संदिग्ध स्कीम के बारे में पूछें — मैं आपकी मदद करूंगा!"
                 )
                 if wa_client and http_client and settings.whatsapp_access_token:
                     await wa_client.send_text(phone_number, reply, http_client)
@@ -400,7 +400,7 @@ def _build_phase1_reply(user_text: str) -> str:
         )
 
     return (
-        f"✅ *Financial Mitra* received your message!\n\n"
+        f"✅ *Finance Mitra* received your message!\n\n"
         f"Our AI is being set up to help with financial questions and scam checks. "
         f"We'll be fully live very soon.\n\n"
         f"_If this is urgent, please reach out to a trusted family member or your bank directly._"

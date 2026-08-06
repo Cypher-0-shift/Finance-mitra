@@ -96,7 +96,7 @@ async def retrieve_scam_context(
             title = row.get("pattern_name", "Unknown Pattern")
             desc = row.get("description", "No description provided.")
             phrasing = row.get("example_phrasing", "")
-            source = row.get("source", "Financial Mitra KB")
+            source = row.get("source", "Finance Mitra KB")
             similarity = row.get("similarity", 0.0)
 
             card_lines = [

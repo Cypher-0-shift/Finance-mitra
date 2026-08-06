@@ -1,5 +1,5 @@
 """
-app/config.py — Application settings for Financial Mitra.
+app/config.py — Application settings for Finance Mitra.
 
 All configuration is read from environment variables (Railway/Render env vars in
 production; .env file in local development via python-dotenv).
@@ -82,7 +82,7 @@ class Settings(BaseSettings):
         Validates invariants that cannot be caught by field-level validators alone.
         """
         import logging as _log
-        _logger = _log.getLogger("financial_mitra")
+        _logger = _log.getLogger("finance_mitra")
 
         if not self.groq_api_key:
             _logger.warning(

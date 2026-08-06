@@ -15,7 +15,8 @@ export function App() {
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [selectedPhotoUrl, setSelectedPhotoUrl] = useState<string | null>(null);
   const [sessionId, setSessionId] = useState<string>("");
-  const [isComplianceOpen, setIsComplianceOpen] = useState<boolean>(false);
+  // Auto-pop disclaimer notice modal on initial load or reload
+  const [isComplianceOpen, setIsComplianceOpen] = useState<boolean>(true);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -71,6 +72,9 @@ export function App() {
 
   const handleSelectLanguage = (lang: Language) => {
     setCurrentLang(lang);
+  };
+
+  const handleStartChat = () => {
     setActiveScreen("chat");
   };
 
@@ -109,7 +113,7 @@ export function App() {
     setMessages((prev) => [...prev, userMsg]);
     setIsTyping(true);
 
-    const backendUrl = import.meta.env.VITE_API_URL || "https://financial-mitra.onrender.com";
+    const backendUrl = import.meta.env.VITE_API_URL || "https://finance-mitra.onrender.com";
     const inputPayload = imageUrl
       ? {
           session_id: sessionId,
@@ -165,7 +169,7 @@ export function App() {
         id: "err-" + Date.now(),
         sender: "system",
         textHi: "क्षम्यताम् (Sorry), अभी हम सर्वर से संपर्क नहीं कर पा रहे हैं। कृपया अपने नेटवर्क या इंटरनेट कनेक्शन की जांच करें और कुछ देर बाद पुनः प्रयास करें। 🙏",
-        textEn: "We are currently experiencing difficulties communicating with the Financial Mitra backend server. Please check your connection and try again shortly. 🙏",
+        textEn: "We are currently experiencing difficulties communicating with the Finance Mitra backend server. Please check your connection and try again shortly. 🙏",
         timestamp: formatCurrentTime(),
         verdict: "caution",
         verdictTitleHi: "कनेक्शन त्रुटि (Connection Error)",
@@ -199,7 +203,9 @@ export function App() {
     return (
       <>
         <WelcomeScreen
+          currentLang={currentLang}
           onSelectLanguage={handleSelectLanguage}
+          onStartChat={handleStartChat}
           onOpenCompliance={() => setIsComplianceOpen(true)}
         />
         {isComplianceOpen && (

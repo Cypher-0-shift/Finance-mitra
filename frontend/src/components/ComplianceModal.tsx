@@ -58,8 +58,8 @@ export const ComplianceModal: React.FC<ComplianceModalProps> = ({ lang, onClose 
             </div>
             <p>
               {isHi
-                ? "फाइनेंशियल मित्रा (Financial Mitra) एक आर्टिफिशियल इंटेलिजेंस (AI) आधारित साक्षरता और स्कैम रोकथाम सहायक है। हम सेबी (SEBI) द्वारा पंजीकृत निवेश सलाहकार (RIA - Registered Investment Advisor), वित्तीय संस्था, या बैंक नहीं हैं। हमारे द्वारा दी जाने वाली सभी जानकारी केवल व्यक्तिगत जागरूकता और शिक्षा के उद्देश्य से है, इसे व्यावसायिक वित्तीय या निवेश सलाह के रूप में न लिया जाए।"
-                : "Financial Mitra is an AI-powered financial literacy and scam deterrence assistant. We are NOT a SEBI Registered Investment Advisor (RIA), licensed financial institution, or bank. All guidance generated is strictly for general educational awareness and fraud prevention, and must NOT be interpreted as binding commercial, investment, or banking advice."}
+                ? "फाइनेंस मित्रा (Finance Mitra) एक आर्टिफिशियल इंटेलिजेंस (AI) आधारित साक्षरता और स्कैम रोकथाम सहायक है। हम सेबी (SEBI) द्वारा पंजीकृत निवेश सलाहकार (RIA - Registered Investment Advisor), वित्तीय संस्था, या बैंक नहीं हैं। हमारे द्वारा दी जाने वाली सभी जानकारी केवल व्यक्तिगत जागरूकता और शिक्षा के उद्देश्य से है, इसे व्यावसायिक वित्तीय या निवेश सलाह के रूप में न लिया जाए।"
+                : "Finance Mitra is an AI-powered financial literacy and scam deterrence assistant. We are NOT a SEBI Registered Investment Advisor (RIA), licensed financial institution, or bank. All guidance generated is strictly for general educational awareness and fraud prevention, and must NOT be interpreted as binding commercial, investment, or banking advice."}
             </p>
           </div>
 
@@ -74,8 +74,8 @@ export const ComplianceModal: React.FC<ComplianceModalProps> = ({ lang, onClose 
               </h3>
               <p className="text-on-surface-variant">
                 {isHi
-                  ? "फाइनेंशियल मित्रा कभी भी आपसे आपकी बैंक पासवर्ड, एटीएम पिन, यूपीआई पिन, सीवीवी (CVV), या ओटीपी (OTP) नहीं मांगता है। हम किसी भी रूप में धनराशि या पैसे का स्थानांतरण (Money Transfer) नहीं स्वीकारते। यदि कोई व्यक्ति हमारा प्रतिनिधि बनकर पैसे या पिन मांगे, तो तुरंत 1930 (राष्ट्रीय साइबर क्राइम हेल्पलाईन) पर रिपोर्ट करें।"
-                  : "Financial Mitra will NEVER ask for your banking account numbers, passwords, UPI/ATM PINs, debit card details, or One-Time Passwords (OTPs). We do not solicit or execute money transactions. If any individual attempting to represent this tool asks for financial credentials, report them immediately to the National Cyber Crime Hotline (1930) or cybercrime.gov.in."}
+                  ? "फाइनेंस मित्रा कभी भी आपसे आपकी बैंक पासवर्ड, एटीएम पिन, यूपीआई पिन, सीवीवी (CVV), या ओटीपी (OTP) नहीं मांगता है। हम किसी भी रूप में धनराशि या पैसे का स्थानांतरण (Money Transfer) नहीं स्वीकारते। यदि कोई व्यक्ति हमारा प्रतिनिधि बनकर पैसे या पिन मांगे, तो तुरंत 1930 (राष्ट्रीय साइबर क्राइम हेल्पलाईन) पर रिपोर्ट करें।"
+                  : "Finance Mitra will NEVER ask for your banking account numbers, passwords, UPI/ATM PINs, debit card details, or One-Time Passwords (OTPs). We do not solicit or execute money transactions. If any individual attempting to represent this tool asks for financial credentials, report them immediately to the National Cyber Crime Hotline (1930) or cybercrime.gov.in."}
               </p>
             </div>
           </div>
@@ -109,7 +109,7 @@ export const ComplianceModal: React.FC<ComplianceModalProps> = ({ lang, onClose 
               <p className="text-on-surface-variant mb-2">
                 {isHi
                   ? "चूंकि यह एक AI सिस्टम (LLM) है, जटिल और बदलती वित्तीय नीतियों की सटीक पुष्टि के लिए हमेशा आधिकारिक सरकारी पोर्टल का संदर्भ लें। हम किसी भी वित्तीय निर्णय या नुकसान के लिए कानूनी रूप से उत्तरदायी नहीं हैं:"
-                  : "As generative AI reasoning models (LLMs) evaluate dynamic financial scenarios, users are advised to verify all critical scheme features directly on canonical public portals. Financial Mitra accepts no fiscal liability for personal decisions based on automated evaluations:"}
+                  : "As generative AI reasoning models (LLMs) evaluate dynamic financial scenarios, users are advised to verify all critical scheme features directly on canonical public portals. Finance Mitra accepts no fiscal liability for personal decisions based on automated evaluations:"}
               </p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-medium pt-1">
                 <li>

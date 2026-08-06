@@ -1,5 +1,5 @@
 """
-app/services/audit.py — Audit log writer for Financial Mitra.
+app/services/audit.py — Audit log writer for Finance Mitra.
 
 Every access to raw conversation data, the escalation queue, or any
 internal admin view MUST call write_audit_log() before returning data.

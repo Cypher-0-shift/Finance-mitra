@@ -45,7 +45,7 @@ async def notify_partner(
         True if notified successfully (or simulated in development), False otherwise.
     """
     payload = {
-        "event": "financial_mitra.escalation_created",
+        "event": "finance_mitra.escalation_created",
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "escalation_id": escalation_id,
         "conversation_id": conversation_id,

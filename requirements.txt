@@ -1,4 +1,4 @@
-# Financial Mitra — Python dependencies
+# Finance Mitra — Python dependencies
 # Pinned to exact versions for reproducibility.
 # Run `pip-audit` before pilot launch (pyproject.toml wires this into tooling).
 
