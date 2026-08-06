@@ -24,7 +24,7 @@ httpx==0.28.1                    # used by Supabase client internally + WhatsApp
 python-multipart==0.0.20         # needed by FastAPI for form/file uploads (image input)
 
 # ── Testing ───────────────────────────────────────────────────────────────────
-pytest==8.4.1
+pytest==9.1.1
 pytest-asyncio==0.25.3
 pytest-cov==6.2.1
 
