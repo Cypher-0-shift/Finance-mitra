@@ -17,7 +17,7 @@ services:
     plan: free                    # Switch to 'starter' or above before real-user pilot
 
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: PYTHONPATH=backend uvicorn app.main:app --host 0.0.0.0 --port $PORT
 
     healthCheckPath: /health      # Render uses this for deployment readiness checks
 

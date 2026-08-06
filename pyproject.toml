@@ -6,7 +6,8 @@ requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-testpaths = ["tests"]
+testpaths = ["backend/tests", "tests"]
+pythonpath = ["backend", "backend/app"]
 filterwarnings = [
     "error",
     "ignore::DeprecationWarning:pydantic.*",
@@ -17,8 +18,8 @@ filterwarnings = [
 ]
 
 [tool.coverage.run]
-source = ["app"]
-omit = ["tests/*", "*/migrations/*"]
+source = ["backend/app"]
+omit = ["*/tests/*", "*/migrations/*"]
 
 [tool.coverage.report]
 show_missing = true
