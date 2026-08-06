@@ -210,7 +210,6 @@ export function App() {
         />
         {isComplianceOpen && (
           <ComplianceModal
-            lang={currentLang}
             onClose={() => setIsComplianceOpen(false)}
           />
         )}
@@ -289,7 +288,6 @@ export function App() {
       {/* Legal & Regulatory Compliance Modal */}
       {isComplianceOpen && (
         <ComplianceModal
-          lang={currentLang}
           onClose={() => setIsComplianceOpen(false)}
         />
       )}
