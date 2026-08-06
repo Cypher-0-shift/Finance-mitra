@@ -1,5 +1,5 @@
 # Financial Mitra — AI Financial Companion
-**Team ZENVEST | BITSoM × Masai Capstone**
+**Team ZENVEST | BITSoM × Masai Capstone Project**
 
 A WhatsApp-first and web-based AI companion that helps low-income, informal-income users in India make confident money decisions and avoid scams — in Hindi or English, no app download required.
 
@@ -258,6 +258,6 @@ Before opening testing to anyone outside the core team, verify every item in `do
 
 ## Team
 
-**Team ZENVEST** — BITSoM × Masai School Capstone, Phase 2
+**Team ZENVEST** — BITSoM × Masai School Capstone Project, Phase 2
 
 *Financial Mitra is an educational capstone project. It is not a registered financial advisor and does not provide regulated financial advice. See `docs/COMPLIANCE_AND_SECURITY.md` for full scope and disclaimers.*
