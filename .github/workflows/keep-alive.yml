@@ -31,13 +31,30 @@ jobs:
     steps:
       - name: Ping /health (wakes Render + Supabase)
         run: |
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "X-Health-Token: ${{ secrets.RENDER_HEALTH_CHECK_TOKEN }}" \
-            "${{ secrets.RENDER_APP_URL }}/health")
+          # Use secret RENDER_APP_URL if provided, else fallback to default production Render URL
+          BASE_URL="${{ secrets.RENDER_APP_URL }}"
+          if [ -z "$BASE_URL" ]; then
+            BASE_URL="https://finance-mitra.onrender.com"
+          fi
 
-          echo "Health check returned: $HTTP_STATUS"
+          # Strip trailing slash if present
+          BASE_URL="${BASE_URL%/}"
+          TARGET_URL="${BASE_URL}/health"
+
+          echo "Pinging health check endpoint: ${TARGET_URL}"
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -H "X-Health-Token: ${{ secrets.RENDER_HEALTH_CHECK_TOKEN }}" \
+            "${TARGET_URL}")
+
+          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "Health check returned HTTP status: $HTTP_STATUS"
+          echo "Response body: $BODY"
 
           if [ "$HTTP_STATUS" != "200" ]; then
-            echo "::warning::Health check returned $HTTP_STATUS — check Render and Supabase status"
+            echo "::error::Health check returned $HTTP_STATUS for $TARGET_URL — check Render and Supabase status"
             exit 1
           fi
+
